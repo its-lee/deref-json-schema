@@ -1,0 +1,24 @@
+image: node:16.15.0 # This must be synced with the version in .nvmrc (or use 'nvm use')
+definitions:
+  install: &install node -v && npm install
+  steps:
+    - &lint
+      name: Lint
+      trigger: automatic
+      caches:
+        - node
+      script:
+        - *install
+        - npm run lint
+    - &security-scan
+      name: Security scan
+      trigger: automatic
+      script:
+        - pipe: atlassian/git-secrets-scan:0.5.1
+    - &parallel-build
+      - step: *lint
+      - step: *security-scan
+pipelines:
+  pull-requests:
+    "**":
+      - parallel: *parallel-build

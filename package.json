@@ -1,0 +1,35 @@
+{
+  "name": "deref-json-schema",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Tool which maps json schema, replacing $refs by their referenced content. This is useful when preparing the schema for conversion to Typescript, which can choke on $refs (especially inter-file ones)",
+  "main": "src/index.js",
+  "bin": {
+    "deref-json-schema": "./cli.js"
+  },
+  "scripts": {
+    "cli": "node src/cli.js",
+    "lint": "eslint src/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/feeditbackltd/deref-json-schema.git"
+  },
+  "keywords": [
+    "tool",
+    "json",
+    "schema"
+  ],
+  "author": "Lee Crosby",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/feeditbackltd/deref-json-schema#readme",
+  "dependencies": {
+    "commander": "^9.4.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.26.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.7.1"
+  }
+}
