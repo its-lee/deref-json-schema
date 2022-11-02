@@ -19,17 +19,17 @@ npm run cli
 The intended use-case is to run this tool on a known directory containing JSON schema:
 
 ```sh
-npm run cli -- -i /Users/lee/Sites/fib_core/backoffice/public/schemas/api -vvv
+npm run cli -- -i /Users/lee/Desktop/schema -vvv
 ```
 
 (We haven't bothered making this package npm-installable globally or anything - just clone this repository and run the above in the root directory)
 
-This will generate a folder containing dereferenced JSON schemas at `/Users/lee/Sites/fib_core/backoffice/public/schemas/api-deref` in this example.
+This will generate a folder containing dereferenced JSON schemas at `/Users/lee/Desktop/schema-deref` in this example.
 
 Then you can run json2ts (from https://github.com/bcherny/json-schema-to-typescript), which will then be able to convert the JSON schema to Typescript, which would otherwise choke on inter-file references.
 
 Note that it's not just json2ts which chokes on these (every tool we've tried does), but json2ts is widely used and we'd like to use it to, so this tool is necessary to do so.
 
 ```sh
-json2ts -i '/Users/lee/Sites/fib_core/backoffice/public/schemas/api-deref/**/*.json' -cwd '/Users/lee/Sites/fib_core/backoffice/public/schemas/api-deref' > ~/Desktop/output.ts
+json2ts -i '/Users/lee/Desktop/schema-deref/**/*.json' -cwd '/Users/lee/Desktop/schema-deref' > ~/Desktop/output.ts
 ```
