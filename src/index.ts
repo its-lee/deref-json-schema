@@ -92,7 +92,7 @@ export const derefJsonSchemas = ({ input, output, maxPasses }: DerefOptions) => 
   try {
     log(
       'info',
-      `Copying schemas to output directory ${output} - this will delete the content of the output direction first`
+      `Copying schemas to output directory ${output} - this will delete the content of the output directory first`
     );
     copyJsonFiles(input, output);
 
