@@ -2,8 +2,9 @@ import { sep } from 'path';
 
 import { program } from 'commander';
 
-import { setVerbosity } from './helpers/log.js';
-import { derefJsonSchemas } from './index.js';
+import { enableVerbose } from './helpers/log';
+import { derefJsonSchemas } from './index';
+import { DerefOptions } from './types';
 
 const defaultOptionsSuffix = '-deref';
 
@@ -21,9 +22,9 @@ const options = program
   )
   .option('-vvv, --verbose', 'whether logging should be enabled during processing', false)
   .parse()
-  .opts();
+  .opts<DerefOptions>();
 
-const handleOutputDefault = () => {
+const handleOutputDefault = (options: DerefOptions): string => {
   if (options.output) {
     return options.output;
   }
@@ -32,6 +33,6 @@ const handleOutputDefault = () => {
   return [...inputParts.slice(0, -1), inputParts.slice(-1)[0] + defaultOptionsSuffix].join(sep);
 };
 
-setVerbosity(options.verbose);
+enableVerbose(options.verbose);
 options.output = handleOutputDefault(options);
 derefJsonSchemas(options);

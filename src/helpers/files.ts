@@ -10,9 +10,9 @@ import {
 } from 'fs';
 import { dirname, extname, resolve, relative } from 'path';
 
-import { log } from './log.js';
+import { log } from './log';
 
-const findFiles = (dir, files = []) => {
+const findFiles = (dir: string, files: string[] = []): string[] => {
   readdirSync(dir).map(file => {
     const filepath = `${dir}/${file}`;
     if (statSync(filepath).isDirectory()) {
@@ -25,11 +25,11 @@ const findFiles = (dir, files = []) => {
   return files;
 };
 
-export const findJsonFiles = filepath => {
+export const findJsonFiles = (filepath: string): string[] => {
   return findFiles(filepath).filter(f => extname(f) === '.json');
 };
 
-export const copyJsonFiles = (src, dest) => {
+export const copyJsonFiles = (src: string, dest: string): void => {
   ensureDirExistsSync(dest);
   rmSync(dest, { recursive: true, force: true });
 
@@ -40,23 +40,26 @@ export const copyJsonFiles = (src, dest) => {
   });
 };
 
-export const readJsonFileSync = filepath => {
-  return JSON.parse(readFileSync(filepath));
+export const readJsonFileSync = (filepath: string): unknown => {
+  return JSON.parse(readFileSync(filepath) as unknown as string);
 };
 
-export const ensureDirExistsSync = filepath => {
+export const ensureDirExistsSync = (filepath: string): void => {
   const dir = dirname(filepath);
   if (!existsSync(dir)) {
     mkdirSync(dir, { recursive: true });
   }
 };
 
-export const writeJsonFileSync = (filepath, obj) => {
+export const writeJsonFileSync = (filepath: string, obj: unknown): void => {
   ensureDirExistsSync(filepath);
   writeFileSync(filepath, JSON.stringify(obj, null, 2), { flag: 'w' });
 };
 
-export const modifyJsonFiles = (filepaths, callback) => {
+export const modifyJsonFiles = (
+  filepaths: string[],
+  callback: (content: unknown, filepath: string) => unknown
+): void => {
   filepaths.forEach(filepath => {
     const content = readJsonFileSync(filepath);
     callback(content, filepath);
@@ -64,7 +67,11 @@ export const modifyJsonFiles = (filepaths, callback) => {
   });
 };
 
-export const multipassModifyJsonFiles = (files, callback, maxPasses = 100) => {
+export const multipassModifyJsonFiles = (
+  files: string[],
+  callback: (content: unknown, filepath: string) => number,
+  maxPasses = 100
+): void => {
   modifyJsonFiles(files, (content, filepath) => {
     log('debug', 'Modifying', filepath);
     for (let pass = 0; pass < maxPasses; pass++) {
