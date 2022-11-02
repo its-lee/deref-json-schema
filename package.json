@@ -5,7 +5,7 @@
   "description": "Tool which maps json schema, replacing $refs by their referenced content. This is useful when preparing the schema for conversion to Typescript, which can choke on $refs (especially inter-file ones)",
   "main": "src/index.js",
   "bin": {
-    "deref-json-schema": "./cli.js"
+    "deref-json-schema": "./src/cli.js"
   },
   "scripts": {
     "cli": "node src/cli.js",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/feeditbackltd/deref-json-schema.git"
+    "url": "git+ssh://git@github.com:its-lee/deref-json-schema.git"
   },
   "keywords": [
     "tool",
@@ -21,8 +21,8 @@
     "schema"
   ],
   "author": "Lee Crosby",
-  "license": "ISC",
-  "homepage": "https://bitbucket.org/feeditbackltd/deref-json-schema#readme",
+  "license": "MIT",
+  "homepage": "https://github.com/its-lee/deref-json-schema",
   "dependencies": {
     "commander": "^9.4.1"
   },
