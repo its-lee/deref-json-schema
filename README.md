@@ -19,7 +19,7 @@ npm run cli
 The intended use-case is to run this tool on a known directory containing JSON schema:
 
 ```sh
-npm run cli -- -i /Users/lee/Desktop/schema -vvv
+npm run cli -- -i /Users/lee/Desktop/schema -v
 ```
 
 (We haven't bothered making this package npm-installable globally or anything - just clone this repository and run the above in the root directory)
